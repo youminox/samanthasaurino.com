@@ -686,21 +686,6 @@ export default function HomePage() {
                     </div>
                     <span className="text-xl">✉</span>
                   </a>
-
-                  <a
-                    href="mailto:samanthasaurino@gmail.com"
-                    className="flex items-center justify-between rounded-2xl border border-border-light bg-light-bg p-5 text-navy transition hover:border-primary/40"
-                  >
-                    <div>
-                      <span className="block text-[11px] font-bold uppercase tracking-wider text-primary">
-                        Contacto Directo Samantha Saurino
-                      </span>
-                      <span className="text-base font-bold">
-                        samanthasaurino@gmail.com
-                      </span>
-                    </div>
-                    <span className="text-xl">✉</span>
-                  </a>
                 </div>
               </div>
             </div>
