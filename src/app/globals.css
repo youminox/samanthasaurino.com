@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  /* Colores oficiales actuales de la web de Samantha Saurino */
+  --color-primary: #ec5b53;
+  --color-primary-dark: #cf332b;
+  --color-navy: #002d5b;
+  --color-navy-dark: #001f40;
+  --color-brand-black: #35373a;
+  --color-brand-gray: #52565c;
+  --color-light-bg: #fefafa;
+  --color-muted-bg: #f2f5f7;
+  --color-border-light: #f1e4e3;
+
+  /* Paleta oficial Brand Board BELLE 364 */
+  --color-belle-olive: #5c604c;
+  --color-belle-olive-dark: #434737;
+  --color-belle-sage: #cdd4b2;
+  --color-belle-cream: #fff9e2;
+  --color-belle-gold: #ddae59;
+  --color-belle-bronze: #a88349;
+  --color-belle-sand: #d4cdb3;
+
+  --font-sans: var(--font-open-sans), "Helvetica Neue", Helvetica, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-belle: var(--font-source-serif), Georgia, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-brand-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, .font-serif-display {
+  font-family: var(--font-display);
+}
+
+.font-belle-serif {
+  font-family: var(--font-belle);
+}
+
+::selection {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 5s ease-in-out infinite;
+}
+
+.bg-samantha-hero {
+  background: radial-gradient(circle at 85% 20%, rgba(236, 91, 83, 0.10) 0%, transparent 45%),
+              radial-gradient(circle at 10% 80%, rgba(0, 45, 91, 0.05) 0%, transparent 40%),
+              #fefafa;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
