@@ -34,11 +34,8 @@ export default function PoliticaPrivacidadPage() {
           <a href="https://samanthasaurino.com">www.samanthasaurino.com</a>
         </li>
         <li>
-          <strong>Correos de contacto:</strong>{" "}
-          <a href="mailto:samanthasaurino@gmail.com">
-            samanthasaurino@gmail.com
-          </a>{" "}
-          / <a href="mailto:info@belle364.com">info@belle364.com</a>
+          <strong>Correo de contacto:</strong>{" "}
+          <a href="mailto:info@belle364.com">info@belle364.com</a>
         </li>
         <li>
           <strong>Actividad:</strong> Emprendimiento, difusión de la marca de
@@ -60,8 +57,7 @@ export default function PoliticaPrivacidadPage() {
       <p>
         Puedes ejercer en cualquier momento tus derechos de acceso,
         rectificación, cancelación u oposición enviando un correo electrónico a{" "}
-        <a href="mailto:samanthasaurino@gmail.com">samanthasaurino@gmail.com</a>{" "}
-        o <a href="mailto:info@belle364.com">info@belle364.com</a>.
+        <a href="mailto:info@belle364.com">info@belle364.com</a>.
       </p>
     </LegalLayout>
   );

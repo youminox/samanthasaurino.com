@@ -115,18 +115,7 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-brand-gray">
               <div>
                 <p className="text-xs font-bold uppercase tracking-wide text-brand-black">
-                  Samantha Saurino (Prensa y Contenido)
-                </p>
-                <a
-                  href={`mailto:${content.brand.email}`}
-                  className="font-medium text-primary hover:underline"
-                >
-                  {content.brand.email}
-                </a>
-              </div>
-              <div>
-                <p className="text-xs font-bold uppercase tracking-wide text-brand-black">
-                  Atención al Cliente Belle 364
+                  Atención y Contacto Belle 364
                 </p>
                 <a
                   href={`mailto:${content.brand.belle364.email}`}

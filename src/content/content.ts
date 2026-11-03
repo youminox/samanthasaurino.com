@@ -7,7 +7,7 @@ export const content = {
     role: "Emprendedora, Fundadora de Belle 364 & Creadora de Contenido",
     slogan:
       "Construyendo marcas con propósito, bienestar real y contenido auténtico que inspira.",
-    email: "samanthasaurino@gmail.com",
+    email: "info@belle364.com",
     website: "https://samanthasaurino.com",
     location: "Lima, Perú",
     belle364: {

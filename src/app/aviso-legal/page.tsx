@@ -48,9 +48,7 @@ export default function AvisoLegalPage() {
         </li>
         <li>
           <strong>Correo de contacto:</strong>{" "}
-          <a href="mailto:samanthasaurino@gmail.com">
-            samanthasaurino@gmail.com
-          </a>
+          <a href="mailto:info@belle364.com">info@belle364.com</a>
         </li>
         <li>
           <strong>Actividad del sitio web:</strong> Marca personal de Samantha
