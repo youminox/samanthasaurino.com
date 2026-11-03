@@ -145,7 +145,7 @@ export const content = {
         title: "Cuidado Femenino Belle 364",
         description:
           "Soluciones ergonómicas y delicadas con la piel para estilizar el contorno facial, potenciar el descanso de la piel y lograr un efecto lifting natural sin procedimientos invasivos.",
-        image: "/images/belle364/faja-facial-rosada.webp",
+        image: "/images/belle364/lifestyle-femenino.webp",
         bullets: [
           "Faja Facial Reutilizable en tonos Rosado y Verde Salvia",
           "Cintas Faciales Adhesivas (128 unidades) de acabado invisible",
@@ -157,7 +157,7 @@ export const content = {
         title: "Cuidado Masculino Belle 364",
         description:
           "Diseñada para el hombre moderno que cuida su presencia, definición mandibular y firmeza facial con productos sobrios, cómodos y fáciles de integrar en su rutina diaria o nocturna.",
-        image: "/images/belle364/faja-facial-negra.webp",
+        image: "/images/belle364/lifestyle-masculino.webp",
         bullets: [
           "Faja Facial en edición Negro Clásico de ajuste anatómico",
           "Definición del contorno mandibular y reducción de papada",
