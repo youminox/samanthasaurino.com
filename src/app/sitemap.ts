@@ -2,12 +2,15 @@ import type { MetadataRoute } from "next";
 import { BLOG_INDEX } from "@/content/blog-posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const blogEntries: MetadataRoute.Sitemap = BLOG_INDEX.map((post) => ({
-    url: `https://samanthasaurino.com/blog/${post.slug}/`,
-    lastModified: new Date(post.publishedAt),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
+  const blogEntries: MetadataRoute.Sitemap = BLOG_INDEX.map((post) => {
+    const isFeaturedSeo = post.id.startsWith("seo-2026-");
+    return {
+      url: `https://samanthasaurino.com/blog/${post.slug}/`,
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: isFeaturedSeo ? "weekly" : "monthly",
+      priority: isFeaturedSeo ? 0.9 : 0.7,
+    };
+  });
 
   return [
     {
