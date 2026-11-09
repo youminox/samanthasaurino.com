@@ -1,7 +1,16 @@
 import type { MetadataRoute } from "next";
-import { BLOG_INDEX } from "@/content/blog-posts";
+import { BLOG_INDEX, BLOG_CATEGORIES } from "@/content/blog-posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const categoryEntries: MetadataRoute.Sitemap = Object.keys(
+    BLOG_CATEGORIES
+  ).map((slug) => ({
+    url: `https://samanthasaurino.com/blog/categoria/${slug}/`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: 0.85,
+  }));
+
   const blogEntries: MetadataRoute.Sitemap = BLOG_INDEX.map((post) => {
     const isFeaturedSeo = post.id.startsWith("seo-2026-");
     return {
@@ -25,6 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    ...categoryEntries,
     ...blogEntries,
     {
       url: "https://samanthasaurino.com/aviso-legal/",

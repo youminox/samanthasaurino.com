@@ -97,7 +97,7 @@ export default function Footer() {
               {Object.entries(BLOG_CATEGORIES).map(([slug, label]) => (
                 <li key={slug}>
                   <Link
-                    href={`/blog/?categoria=${slug}`}
+                    href={`/blog/categoria/${slug}/`}
                     className="transition-colors hover:text-primary"
                   >
                     {label}

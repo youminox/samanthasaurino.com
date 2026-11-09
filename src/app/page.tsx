@@ -548,7 +548,7 @@ export default function HomePage() {
                 {Object.entries(BLOG_CATEGORIES).map(([slug, label]) => (
                   <Link
                     key={slug}
-                    href={`/blog/?categoria=${slug}`}
+                    href={`/blog/categoria/${slug}/`}
                     className="rounded-full border border-border-light bg-light-bg px-4 py-1.5 text-xs font-bold text-brand-black transition hover:border-primary hover:bg-primary hover:text-white"
                   >
                     {label}

@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 import {
   BLOG_INDEX,
@@ -11,26 +10,17 @@ import {
 
 const PAGE_SIZE = 24;
 
-function BlogListInner() {
-  const searchParams = useSearchParams();
-  const initialCat = searchParams.get("categoria") || "all";
-  const [selectedCategory, setSelectedCategory] = useState<string>(initialCat);
+export default function BlogListClient({
+  initialCategory = "all",
+}: {
+  initialCategory?: string;
+}) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [visibleCount, setVisibleCount] = useState<number>(PAGE_SIZE);
 
-  useEffect(() => {
-    const cat = searchParams.get("categoria");
-    if (cat && BLOG_CATEGORIES[cat]) {
-      setSelectedCategory(cat);
-    } else if (!cat) {
-      setSelectedCategory("all");
-    }
-    setVisibleCount(PAGE_SIZE);
-  }, [searchParams]);
-
   const filteredPosts = BLOG_INDEX.filter((post: BlogPostMeta) => {
     const matchesCat =
-      selectedCategory === "all" || post.categorySlug === selectedCategory;
+      initialCategory === "all" || post.categorySlug === initialCategory;
     const matchesSearch =
       !searchQuery.trim() ||
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -39,6 +29,7 @@ function BlogListInner() {
   });
 
   const visiblePosts = filteredPosts.slice(0, visibleCount);
+  const remainingPosts = filteredPosts.slice(visibleCount);
 
   return (
     <div>
@@ -72,41 +63,34 @@ function BlogListInner() {
           </div>
         </div>
 
+        {/* Clean SEO Category Links (Self-canonicalized routes, no ?categoria= query params) */}
         <div className="flex flex-wrap justify-center gap-2">
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedCategory("all");
-              setVisibleCount(PAGE_SIZE);
-            }}
-            className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
-              selectedCategory === "all"
+          <Link
+            href="/blog/"
+            className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
+              initialCategory === "all"
                 ? "bg-primary text-white shadow-md shadow-primary/25"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
             Todos ({BLOG_INDEX.length})
-          </button>
+          </Link>
           {Object.entries(BLOG_CATEGORIES).map(([slug, label]) => {
             const count = BLOG_INDEX.filter(
               (p) => p.categorySlug === slug
             ).length;
             return (
-              <button
+              <Link
                 key={slug}
-                type="button"
-                onClick={() => {
-                  setSelectedCategory(slug);
-                  setVisibleCount(PAGE_SIZE);
-                }}
-                className={`rounded-full px-4 py-2 text-xs font-bold transition-all cursor-pointer ${
-                  selectedCategory === slug
+                href={`/blog/categoria/${slug}/`}
+                className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
+                  initialCategory === slug
                     ? "bg-primary text-white shadow-md shadow-primary/25"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 {label} ({count})
-              </button>
+              </Link>
             );
           })}
         </div>
@@ -188,22 +172,31 @@ function BlogListInner() {
               </button>
             </div>
           )}
+
+          {/* Complete SSR SEO Directory so Googlebot discovers 100% of articles without JS click */}
+          {remainingPosts.length > 0 && (
+            <section
+              aria-label="Índice completo de artículos"
+              className="mt-20 border-t border-gray-200 pt-12"
+            >
+              <h2 className="text-xl font-bold text-navy mb-6 font-sans">
+                Índice Completo de Guías y Artículos ({filteredPosts.length})
+              </h2>
+              <div className="grid gap-x-6 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
+                {remainingPosts.map((post) => (
+                  <Link
+                    key={post.id}
+                    href={`/blog/${post.slug}/`}
+                    className="text-xs font-medium text-brand-gray hover:text-primary transition-colors line-clamp-1 py-0.5"
+                  >
+                    • {post.title}
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
         </>
       )}
     </div>
-  );
-}
-
-export default function BlogListClient() {
-  return (
-    <Suspense
-      fallback={
-        <div className="py-20 text-center text-gray-400">
-          Cargando artículos...
-        </div>
-      }
-    >
-      <BlogListInner />
-    </Suspense>
   );
 }

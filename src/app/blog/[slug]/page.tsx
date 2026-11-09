@@ -50,9 +50,29 @@ export default async function BlogSlugPage({ params }: Props) {
     notFound();
   }
 
-  const relatedPosts = BLOG_INDEX.filter(
-    (p) => p.id !== post.id && p.categorySlug === post.categorySlug
-  ).slice(0, 4);
+  // Rotate related posts around the current article index within its category
+  // so every single article receives incoming internal links
+  const categoryPosts = BLOG_INDEX.filter(
+    (p) => p.categorySlug === post.categorySlug
+  );
+  const catIdx = Math.max(
+    0,
+    categoryPosts.findIndex((p) => p.id === post.id)
+  );
+  const relatedPosts = [];
+  for (let i = 1; i <= Math.min(4, categoryPosts.length - 1); i++) {
+    relatedPosts.push(categoryPosts[(catIdx + i) % categoryPosts.length]);
+  }
+
+  const globalIdx = Math.max(
+    0,
+    BLOG_INDEX.findIndex((p) => p.id === post.id)
+  );
+  const prevPost =
+    globalIdx > 0
+      ? BLOG_INDEX[globalIdx - 1]
+      : BLOG_INDEX[BLOG_INDEX.length - 1];
+  const nextPost = BLOG_INDEX[(globalIdx + 1) % BLOG_INDEX.length];
 
   const recentPosts = BLOG_INDEX.filter((p) => p.id !== post.id).slice(0, 5);
 
@@ -119,7 +139,7 @@ export default async function BlogSlugPage({ params }: Props) {
 
               <div className="mb-6 flex flex-wrap items-center gap-3">
                 <Link
-                  href={`/blog/?categoria=${post.categorySlug}`}
+                  href={`/blog/categoria/${post.categorySlug}/`}
                   className="rounded-full bg-primary/10 px-3.5 py-1 text-xs font-bold text-primary hover:bg-primary hover:text-white transition"
                 >
                   {post.categoryName}
@@ -161,8 +181,41 @@ export default async function BlogSlugPage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
 
+              {/* Previous / Next Article Navigation for deep crawlability */}
+              <nav
+                aria-label="Navegación entre artículos"
+                className="mt-12 grid gap-4 sm:grid-cols-2 border-t border-gray-200 pt-8"
+              >
+                {prevPost && prevPost.id !== post.id && (
+                  <Link
+                    href={`/blog/${prevPost.slug}/`}
+                    className="group rounded-2xl border border-gray-200 p-4 transition hover:border-primary/40 hover:bg-light-bg"
+                  >
+                    <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                      ← Artículo Anterior
+                    </span>
+                    <span className="mt-1 block text-sm font-bold text-navy group-hover:text-primary line-clamp-2 font-sans">
+                      {prevPost.title}
+                    </span>
+                  </Link>
+                )}
+                {nextPost && nextPost.id !== post.id && (
+                  <Link
+                    href={`/blog/${nextPost.slug}/`}
+                    className="group rounded-2xl border border-gray-200 p-4 text-right transition hover:border-primary/40 hover:bg-light-bg"
+                  >
+                    <span className="block text-[11px] font-bold uppercase tracking-wider text-gray-400">
+                      Siguiente Artículo →
+                    </span>
+                    <span className="mt-1 block text-sm font-bold text-navy group-hover:text-primary line-clamp-2 font-sans">
+                      {nextPost.title}
+                    </span>
+                  </Link>
+                )}
+              </nav>
+
               {/* CTA Banner inside article — Samantha Saurino & Belle 364 */}
-              <div className="mt-14 rounded-2xl bg-gradient-to-br from-belle-olive-dark to-belle-olive p-8 sm:p-10 text-center text-belle-cream shadow-lg">
+              <div className="mt-12 rounded-2xl bg-gradient-to-br from-belle-olive-dark to-belle-olive p-8 sm:p-10 text-center text-belle-cream shadow-lg">
                 <span className="inline-block rounded-full bg-belle-gold/20 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-belle-gold">
                   Emprendimiento de Samantha Saurino
                 </span>

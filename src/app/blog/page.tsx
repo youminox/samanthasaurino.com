@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title:
     "Blog y Artículos sobre Emprendimiento, Contenido Digital y Marcas | Samantha Saurino",
   description:
-    "Más de 760 artículos y guías prácticas de Samantha Saurino sobre emprendimiento, creación de contenido digital, redes sociales, video marketing y posicionamiento de marcas.",
+    "Más de 770 artículos y guías prácticas de Samantha Saurino sobre emprendimiento, creación de contenido digital, redes sociales, video marketing y posicionamiento de marcas.",
   alternates: { canonical: "https://samanthasaurino.com/blog/" },
   openGraph: {
     title:
@@ -44,7 +44,7 @@ export default function BlogPage() {
             </p>
           </div>
 
-          <BlogListClient />
+          <BlogListClient initialCategory="all" />
         </div>
       </main>
       <Footer />
